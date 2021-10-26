@@ -1,62 +1,112 @@
-import React, { useState, useRef } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { WebView } from 'react-native-webview';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-export default function App() {
-  const [canGoBack, setCanGoBack] = useState(false)
-  const [canGoForward, setCanGoForward] = useState(false)
-  const [currentUrl, setCurrentUrl] = useState('')
+import React from 'react';
+import type {Node} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
 
-  const webviewRef = useRef(null)
+import {
+  Colors,
+  DebugInstructions,
+  Header,
+  LearnMoreLinks,
+  ReloadInstructions,
+} from 'react-native/Libraries/NewAppScreen';
 
-  backButtonHandler = () => {
-    if (webviewRef.current)
-      webviewRef.current.goBack()
-  }
-  frontButtonHandler = () => {
-    if (webviewRef.current)
-      webviewRef.current.goForward()
-  }
+const Section = ({children, title}): Node => {
+  const isDarkMode = useColorScheme() === 'dark';
+  return (
+    <View style={styles.sectionContainer}>
+      <Text
+        style={[
+          styles.sectionTitle,
+          {
+            color: isDarkMode ? Colors.white : Colors.black,
+          },
+        ]}>
+        {title}
+      </Text>
+      <Text
+        style={[
+          styles.sectionDescription,
+          {
+            color: isDarkMode ? Colors.light : Colors.dark,
+          },
+        ]}>
+        {children}
+      </Text>
+    </View>
+  );
+};
+
+const App: () => Node = () => {
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
 
   return (
-    <View style={{ flex: 1 }}>
-    <WebView
-      source={{ uri: 'https://login.microsoft.com/' }}
-      style={{ marginTop: 40 }}
-      renderLoading={() => (
-        <ActivityIndicator
-          color='#2ed2d2'
-          size='large'
+    <SafeAreaView style={backgroundStyle}>
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={backgroundStyle}>
+        <Header />
+        <View
           style={{
-            flex: 1
-          }}
-        />
-      )}
-      startInLoadingState={true}
-      ref={webviewRef}
-      onNavigationStateChange={navState => {
-        setCanGoBack(navState.canGoBack)
-        setCanGoForward(navState.canGoForward)
-        setCurrentUrl(navState.url)
-      }}
-    />
-    <View
-      style={{
-        padding: 5,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        backgroundColor: '#2ed2d2'
-      }}>
-      <TouchableOpacity onPress={backButtonHandler}>
-        <Text style={{ color: 'white', fontSize: 24 }}>Back</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={frontButtonHandler}>
-        <Text style={{ color: 'white', fontSize: 24 }}>Forward</Text>
-      </TouchableOpacity>
-     </View>
-</View>
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+          }}>
+          <Section title="Step One">
+            Edit <Text style={styles.highlight}>App.js</Text> to change this
+            screen and then come back to see your edits.
+          </Section>
+          <Section title="See Your Changes">
+            <ReloadInstructions />
+          </Section>
+          <Section title="Debug">
+            <DebugInstructions />
+          </Section>
+          <Section title="Learn More">
+            Read the docs to discover what to do next:
+          </Section>
+          <LearnMoreLinks />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  highlight: {
+    fontWeight: '700',
+  },
 });
+
+export default App;
