@@ -1,111 +1,78 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
-  Text,
-  useColorScheme,
   View,
+  Text,
+  TouchableHighlight,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import { authorize, refresh } from 'react-native-app-auth';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+const AuthConfig = {
+  appId: "3e5d62ee-fff4-4b6c-9206-fcfe9a6e0314",
+  tenantId: "901cb4ca-b862-4029-9306-e5cd0f6d9f86",
+  appScopes: [
+    'openid',
+    'offline_access',
+    'profile',
+  ],
 };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+const config = {
+  warmAndPrefetchChrome: true,
+  clientId: AuthConfig.appId,
+  redirectUrl: 'com.myapp://oauth/redirect/',
+  scopes: AuthConfig.appScopes,
+  additionalParameters: { prompt: 'select_account' },
+  serviceConfiguration: {
+    authorizationEndpoint: 'https://login.microsoftonline.com/' + AuthConfig.tenantId + '/oauth2/v2.0/authorize',
+    tokenEndpoint: 'https://login.microsoftonline.com/' + AuthConfig.tenantId + '/oauth2/v2.0/token',
+  },
+};
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+const App = () => {
+  const [result, setResult] = useState({});
+
+  loginWithOffice365 = async () => {
+    let tempResult = await authorize(config);
+    console.log(tempResult);
+    setResult(tempResult);
   };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <View style={styles.container}>
+        <TouchableHighlight
+          style={[styles.buttonContainer, styles.loginButton]}
+          onPress={() => loginWithOffice365()}>
+          <Text style={styles.loginText}>Login with Office365</Text>
+        </TouchableHighlight>
+        <Text>{result.accessToken ? "Logged In" : "Error"}</Text>
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#DCDCDC',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  buttonContainer: {
+    height: 45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    width: 250,
+    borderRadius: 30,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  loginButton: {
+    backgroundColor: '#3659b8',
   },
-  highlight: {
-    fontWeight: '700',
+  loginText: {
+    color: 'white',
   },
 });
 
