@@ -10,9 +10,19 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-masked-view/masked-view": "^0.2.6",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "axios": "^0.24.0",
     "react": "17.0.2",
     "react-native": "0.66.1",
-    "react-native-app-auth": "^6.4.0"
+    "react-native-app-auth": "^6.4.0",
+    "react-native-cookie": "^0.3.0",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.9.0",
+    "react-native-webview": "^11.14.2",
+    "save": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

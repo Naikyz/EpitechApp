@@ -12,6 +12,14 @@ target 'EpiApp' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
+  pod 'RNCMaskedView', :path => '../node_modules/@react-native-masked-view/masked-view'
+
   target 'EpiAppTests' do
     inherit! :complete
     # Pods for testing

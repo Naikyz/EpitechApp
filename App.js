@@ -1,79 +1,23 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableHighlight,
-} from 'react-native';
+import React, { Component } from 'react'
+import { View, Text, Button } from 'react-native';
+import Login from './screens/Login';
+import HomeScreen from './screens/Home';
+import Test from './screens/Test';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { authorize, refresh } from 'react-native-app-auth';
+const Stack = createNativeStackNavigator();
 
-const AuthConfig = {
-  appId: "3e5d62ee-fff4-4b6c-9206-fcfe9a6e0314",
-  tenantId: "901cb4ca-b862-4029-9306-e5cd0f6d9f86",
-  appScopes: [
-    'openid',
-    'offline_access',
-    'profile',
-  ],
-};
-
-const config = {
-  warmAndPrefetchChrome: true,
-  clientId: AuthConfig.appId,
-  redirectUrl: 'com.myapp://oauth/redirect/',
-  scopes: AuthConfig.appScopes,
-  additionalParameters: { prompt: 'select_account' },
-  serviceConfiguration: {
-    authorizationEndpoint: 'https://login.microsoftonline.com/' + AuthConfig.tenantId + '/oauth2/v2.0/authorize',
-    tokenEndpoint: 'https://login.microsoftonline.com/' + AuthConfig.tenantId + '/oauth2/v2.0/token',
-  },
-};
-
-const App = () => {
-  const [result, setResult] = useState({});
-
-  loginWithOffice365 = async () => {
-    let tempResult = await authorize(config);
-    console.log(tempResult);
-    setResult(tempResult);
-  };
-  return (
-    <>
-      <View style={styles.container}>
-        <TouchableHighlight
-          style={[styles.buttonContainer, styles.loginButton]}
-          onPress={() => loginWithOffice365()}>
-          <Text style={styles.loginText}>Login with Office365</Text>
-        </TouchableHighlight>
-        <Text>{result.accessToken ? "Logged In" : "Error"}</Text>
-      </View>
-    </>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#DCDCDC',
-  },
-  buttonContainer: {
-    height: 45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
-    width: 250,
-    borderRadius: 30,
-  },
-  loginButton: {
-    backgroundColor: '#3659b8',
-  },
-  loginText: {
-    color: 'white',
-  },
-});
+function App() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
+                <Stack.Screen name="Login" component={Login} options={{headerShown:false}}/>
+                <Stack.Screen name="Test" component={Test} options={{headerShown:false}}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
 
 export default App;
