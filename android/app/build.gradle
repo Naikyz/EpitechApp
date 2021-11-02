@@ -132,7 +132,6 @@ android {
 
     defaultConfig {
         applicationId "com.epiapp"
-        manifestPlaceholders = [appAuthRedirectScheme: 'com.myapp']
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
