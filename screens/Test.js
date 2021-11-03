@@ -5,13 +5,13 @@ import axios from 'axios';
 
 const STORAGE_KEY = '@USER';
 
-export default function Test() {
-    const [authLink, setAuthLink] = useState('')
+export default function Test({ navigation }) {
     const [userName, setUserName] = useState('')
 
-    const getName = () => {
-        if (authLink) {
-            let str = authLink.slice(1);
+    const readData = async () => {
+        const userAuthLink = await AsyncStorage.getItem(STORAGE_KEY)
+        if (userAuthLink !== null) {
+            let str = userAuthLink.slice(1);
             str = str.slice(0, str.length - 1);
             str = str.concat('/user/');
             axios.get(str)
@@ -19,20 +19,8 @@ export default function Test() {
         }
     }
 
-    const readData = async () => {
-        try {
-            const userAuthLink = await AsyncStorage.getItem(STORAGE_KEY)
-            if (userAuthLink !== null) {
-                setAuthLink(userAuthLink)
-            }
-        } catch (e) {
-            alert('Failed to fetch the data from storage ' + e)
-        }
-    }
-
     useEffect(() => {
-        readData()
-        getName()
+        readData();
     }, [])
 
     return (
