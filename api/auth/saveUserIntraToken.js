@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 
-export default function saveUserIntraToken(key, value) {
-    axios.request({
+export default async function saveUserIntraToken(key, value) {
+    await axios.request({
         url: "https://intra.epitech.eu/admin/autolog?format=json",
         method: "get",
         headers:{
