@@ -10,7 +10,7 @@ export default function HomeScreen({ navigation }) {
     const isUserLoaded = async () => {
         const Token = await AsyncStorage.getItem('@USER')
         if (Token !== null) {
-            navigation.navigate('InfosPage')
+            navigation.navigate('WelcomePage')
         }
         await Sleep(1000);
         setIsLoading(false);
