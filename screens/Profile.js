@@ -4,8 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import Loader from '../components/Loader';
 
-export default function InfosPage({ navigation }) {
-    const [isLoading, setIsLoading] = useState(true);
+export default function Profile({ navigation }) {
     const [userFirstName, setUserFirstName] = useState('');
     const [userLastName, setUserLastName] = useState('');
     const [userLogin, setUserLogin] = useState('');
@@ -25,7 +24,6 @@ export default function InfosPage({ navigation }) {
                     setUserLogin(result['data']['login']);
                     setUserGpa(result['data']['gpa'][0]['gpa']);
                     setUserCredits(result['data']['credits']);
-                    setIsLoading(false);
                 });
         }
     }
@@ -35,24 +33,18 @@ export default function InfosPage({ navigation }) {
         readData();
     }, [])
 
-    if (isLoading === true)
-        return (
-            <Loader />
-        )
-    else {
-        return (
-            <View>
-                <Image
-                    source={{ uri: imageUrl }}
-                    style={styles.circleProfilePicture}
-                />
-                <Text>Welcome {userFirstName + " " + userLastName}</Text>
-                <Text>Your GPA is {userGpa}</Text>
-                <Text>You have {userCredits} credits</Text>
-            </View>
+    return (
+        <View>
+            <Image
+                source={{ uri: imageUrl }}
+                style={styles.circleProfilePicture}
+            />
+            <Text>Welcome {userFirstName + " " + userLastName}</Text>
+            <Text>Your GPA is {userGpa}</Text>
+            <Text>You have {userCredits} credits</Text>
+        </View>
 
-        )
-    }
+    )
 }
 
 const styles = StyleSheet.create({

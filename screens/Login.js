@@ -6,7 +6,7 @@ import saveUserIntraToken from '../api/auth/saveUserIntraToken';
 async function getRightUrl(cookie, navigation) {
     if (cookie != null && cookie['user']) {
         await saveUserIntraToken('@USER', cookie['user']);
-        navigation.navigate('WelcomePage')
+        navigation.navigate('Nav')
     }
 }
 

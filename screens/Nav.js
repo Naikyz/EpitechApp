@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import Loader from '../components/Loader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import InfosPage from './InfosPage';
-import { BoxShadow } from 'react-native-shadow';
+import Profile from './Profile';
+import Sleep from '../components/Sleep';
 
 const Tab = createBottomTabNavigator();
 
-export default function WelcomePage({ navigation }) {
+export default function Nav({ navigation }) {
     const [userName, setUserName] = useState('')
     const [isLoading, setIsLoading] = useState(true);
 
@@ -20,20 +20,11 @@ export default function WelcomePage({ navigation }) {
             str = str.slice(0, str.length - 1);
             str = str.concat('/user/');
             axios.get(str)
-                .then(async result => { setUserName(result['data']['firstname']); setIsLoading(false); });
+                .then(async result => {
+                    setUserName(result['data']['firstname']);
+                    setIsLoading(false);
+                });
         }
-    }
-
-    const shadowOpt = {
-        width: 100,
-        height: 100,
-        color: "#000",
-        border: 2,
-        radius: 3,
-        opacity: 0.2,
-        x: 0,
-        y: 3,
-        style: { marginVertical: 5 }
     }
 
     useEffect(() => {
@@ -60,34 +51,34 @@ export default function WelcomePage({ navigation }) {
             >
                 <Tab.Screen
                     name="SideBar"
-                    component={InfosPage}
+                    component={Profile}
                     options={{
                         headerShown: false,
                         tabBarLabel: 'Nav',
                         tabBarIcon: ({ color, size }) => (
-                            <Image tintColor='white' source={require("../assets/IconMenu.png")} />
+                            <Image tintColor='white' source={require("../assets/img/IconMenu.png")} />
                         ),
                     }}
                 />
                 <Tab.Screen
                     name="InfosPage"
-                    component={InfosPage}
+                    component={Profile}
                     options={{
                         tabBarLabel: 'Home',
                         headerShown: false,
                         tabBarIcon: ({ focused }) => (
-                            <Image tintColor='white' source={(focused == true) ? require("../assets/IconHomeFilled.png") : require("../assets/IconHome.png")} />
+                            <Image tintColor='white' source={(focused == true) ? require("../assets/img/IconHomeFilled.png") : require("../assets/img/IconHome.png")} />
                         ),
                     }}
                 />
                 <Tab.Screen
                     name="Profile"
-                    component={InfosPage}
+                    component={Profile}
                     options={{
                         tabBarLabel: 'Profile',
                         headerShown: false,
                         tabBarIcon: ({ focused }) => (
-                            <Image tintColor='white' source={(focused === true) ? require("../assets/IconProfilFilled.png") : require("../assets/IconProfil.png")} />
+                            <Image tintColor='white' source={(focused === true) ? require("../assets/img/IconProfilFilled.png") : require("../assets/img/IconProfil.png")} />
                         ),
                     }}
                 />

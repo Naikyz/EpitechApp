@@ -4,13 +4,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader';
 import Sleep from '../components/Sleep';
 
-export default function HomeScreen({ navigation }) {
+export default function Connect({ navigation }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const isUserLoaded = async () => {
         const Token = await AsyncStorage.getItem('@USER')
         if (Token !== null) {
-            navigation.navigate('WelcomePage')
+            navigation.navigate('Nav')
         }
         await Sleep(1000);
         setIsLoading(false);
