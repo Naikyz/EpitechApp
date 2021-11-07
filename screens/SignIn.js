@@ -5,7 +5,7 @@ export default class SignIn extends Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#3A86FF' }}>
-                <Image source={require('../assets/img/ELogo.png')} style={{}} />
+                <Image source={require('../assets/img/ELogo.png')} />
                 <Text style={{ alignItems: 'center', marginTop: -25, color: '#EBFDFF', fontSize: 30, fontWeight: '500' }}>Welcome Back !</Text>
                 <Image source={require('../assets/img/Lock.png')} style={{ width: 300, height: 300 }} />
                 <TouchableOpacity

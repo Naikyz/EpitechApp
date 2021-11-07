@@ -6,7 +6,7 @@ import Loader from '../components/Loader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Profile';
 import Home from './Home';
-import Sleep from '../components/Sleep';
+import Start from './Start';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,8 +14,8 @@ export default function Nav({ navigation }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const Sleeping = async () => {
-        await Sleep(3000);
-        setIsLoading(false);
+        // await Sleep(3000);
+        // setIsLoading(false);
     }
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export default function Nav({ navigation }) {
 
     if (isLoading === true)
         return (
-            <Loader />
+            <Start />
         )
     else {
         return (
