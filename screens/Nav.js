@@ -5,7 +5,7 @@ import axios from 'axios';
 import Loader from '../components/Loader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Profile';
-import Sleep from '../components/Sleep';
+import SignIn from './SignIn';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ export default function Nav({ navigation }) {
             axios.get(str)
                 .then(async result => {
                     setUserName(result['data']['firstname']);
-                    setIsLoading(false);
+                    // setIsLoading(false);
                 });
         }
     }
@@ -33,7 +33,7 @@ export default function Nav({ navigation }) {
 
     if (isLoading === true)
         return (
-            <Loader />
+            <SignIn />
         )
     else {
         return (
