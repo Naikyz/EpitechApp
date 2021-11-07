@@ -1,24 +1,35 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, Image, TouchableOpacity, StyleSheet, Linking } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 
-export default class Start extends Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#3A86FF' }}>
-                <Image source={require('../assets/img/ELogo.png')} />
-                <Image source={require('../assets/img/Rocket.png')} style={{ width: 300, height: 300 }} />
-                <Text style={[styles.textBrand, {marginTop: -30}]}>Epitech Intranet</Text>
-                <Text style={[styles.textBrand, {marginTop: -40}]}> and more in your Pocket</Text>
-                <TouchableOpacity
-                    style={styles.button}
-                >
-                    <Text style={styles.textButton} >Let's Start !</Text>
-                </TouchableOpacity>
-                <Text style={[styles.textFooter, {marginTop: 10}]}>Continuing means you're okay with our</Text>
-                <Text onPress={() => Linking.openURL('https://google.com')} style={[styles.textFooter, {marginTop: -25}, {textDecorationLine:'underline',}]}>Terms of service, Privacy Policy and default Notifications settings</Text>
-            </View>
-        )
+export default function Start({ navigation }) {
+
+    const setAlreadyLogged = async () => {
+        await AsyncStorage.setItem("isUserAlreadyLogged", "Y");
     }
+
+    useEffect(() => {
+        setAlreadyLogged();
+    })
+
+    return (
+        <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#3A86FF' }}>
+            <Image source={require('../assets/img/ELogo.png')} />
+            <Image source={require('../assets/img/Rocket.png')} style={{ width: 300, height: 300 }} />
+            <Text style={[styles.textBrand, { marginTop: -30 }]}>Epitech Intranet</Text>
+            <Text style={[styles.textBrand, { marginTop: -40 }]}> and more in your Pocket</Text>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={async () =>
+                    navigation.navigate('SignIn')
+                }
+            >
+                <Text style={styles.textButton} >Let's Start !</Text>
+            </TouchableOpacity>
+            <Text style={[styles.textFooter, { marginTop: 10 }]}>Continuing means you're okay with our</Text>
+            <Text onPress={() => Linking.openURL('https://google.com')} style={[styles.textFooter, { marginTop: -25 }, { textDecorationLine: 'underline', }]}>Terms of service, Privacy Policy and default Notifications settings</Text>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

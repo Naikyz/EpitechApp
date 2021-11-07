@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import { StyleSheet } from 'react-native';
 import Login from './screens/Login';
-import Connect from './screens/Connect';
+import SignIn from './screens/SignIn';
 import Nav from './screens/Nav';
+import Start from './screens/Start';
 import Profile from './screens/Profile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,10 +14,11 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Connect" component={Connect} options={{ headerShown: false }} />
+        <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Nav" component={Nav} options={{ headerShown: false }} />
         <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+        <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

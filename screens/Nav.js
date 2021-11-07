@@ -1,12 +1,10 @@
 import React, { useState, useEffect, Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
 import Loader from '../components/Loader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Profile';
 import Home from './Home';
-import Start from './Start';
+import Sleep from '../components/Sleep';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,8 +12,8 @@ export default function Nav({ navigation }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const Sleeping = async () => {
-        // await Sleep(3000);
-        // setIsLoading(false);
+        await Sleep(3000);
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -24,7 +22,7 @@ export default function Nav({ navigation }) {
 
     if (isLoading === true)
         return (
-            <Start />
+            <Loader />
         )
     else {
         return (
