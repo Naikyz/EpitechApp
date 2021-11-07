@@ -5,35 +5,26 @@ import axios from 'axios';
 import Loader from '../components/Loader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Profile';
-import SignIn from './SignIn';
+import Home from './Home';
+import Sleep from '../components/Sleep';
 
 const Tab = createBottomTabNavigator();
 
 export default function Nav({ navigation }) {
-    const [userName, setUserName] = useState('')
     const [isLoading, setIsLoading] = useState(true);
 
-    const readData = async () => {
-        const userAuthLink = await AsyncStorage.getItem('@USER')
-        if (userAuthLink !== null) {
-            let str = userAuthLink.slice(1);
-            str = str.slice(0, str.length - 1);
-            str = str.concat('/user/');
-            axios.get(str)
-                .then(async result => {
-                    setUserName(result['data']['firstname']);
-                    // setIsLoading(false);
-                });
-        }
+    const Sleeping = async () => {
+        await Sleep(3000);
+        setIsLoading(false);
     }
 
     useEffect(() => {
-        readData();
+        Sleeping();
     }, [])
 
     if (isLoading === true)
         return (
-            <SignIn />
+            <Loader />
         )
     else {
         return (
@@ -62,7 +53,7 @@ export default function Nav({ navigation }) {
                 />
                 <Tab.Screen
                     name="InfosPage"
-                    component={Profile}
+                    component={Home}
                     options={{
                         tabBarLabel: 'Home',
                         headerShown: false,

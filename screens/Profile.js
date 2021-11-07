@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
-import Loader from '../components/Loader';
 
-export default function Profile({ navigation }) {
+export default function Profile() {
+    const [isLoading, setIsLoading] = useState(true);
     const [userFirstName, setUserFirstName] = useState('');
     const [userLastName, setUserLastName] = useState('');
     const [userLogin, setUserLogin] = useState('');
@@ -24,6 +24,7 @@ export default function Profile({ navigation }) {
                     setUserLogin(result['data']['login']);
                     setUserGpa(result['data']['gpa'][0]['gpa']);
                     setUserCredits(result['data']['credits']);
+                    setIsLoading(false);
                 });
         }
     }
@@ -33,18 +34,26 @@ export default function Profile({ navigation }) {
         readData();
     }, [])
 
-    return (
-        <View>
-            <Image
-                source={{ uri: imageUrl }}
-                style={styles.circleProfilePicture}
-            />
-            <Text>Welcome {userFirstName + " " + userLastName}</Text>
-            <Text>Your GPA is {userGpa}</Text>
-            <Text>You have {userCredits} credits</Text>
-        </View>
+    if (isLoading === true)
+        return (
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <ActivityIndicator size="large"/>
+            </View>
+        )
+    else {
+        return (
+            <View>
+                <Image
+                    source={{ uri: imageUrl }}
+                    style={styles.circleProfilePicture}
+                />
+                <Text>Welcome {userFirstName + " " + userLastName}</Text>
+                <Text>Your GPA is {userGpa}</Text>
+                <Text>You have {userCredits} credits</Text>
+            </View>
 
-    )
+        )
+    }
 }
 
 const styles = StyleSheet.create({
