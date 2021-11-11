@@ -2,10 +2,12 @@ import React from 'react';
 import WebView from 'react-native-webview';
 import Cookie from 'react-native-cookie';
 import saveUserIntraToken from '../api/auth/saveUserIntraToken';
+import saveUserLogin from '../api/auth/saveUserLogin';
 
 async function getRightUrl(cookie, navigation) {
     if (cookie != null && cookie['user']) {
         await saveUserIntraToken('@USER', cookie['user']);
+        await saveUserLogin('@LOGIN', cookie['user']);
         navigation.navigate('Nav')
     }
 }
