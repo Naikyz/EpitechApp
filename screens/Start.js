@@ -8,10 +8,6 @@ export default function Start({ navigation }) {
         await AsyncStorage.setItem("isUserAlreadyLogged", "Y");
     }
 
-    useEffect(() => {
-        setAlreadyLogged();
-    })
-
     return (
         <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#3A86FF' }}>
             <Image source={require('../assets/img/ELogo.png')} />
@@ -20,9 +16,10 @@ export default function Start({ navigation }) {
             <Text style={[styles.textBrand, { marginTop: -40 }]}> and more in your Pocket</Text>
             <TouchableOpacity
                 style={styles.button}
-                onPress={async () =>
+                onPress={async () => {
+                    setAlreadyLogged()
                     navigation.navigate('SignIn')
-                }
+                }}
             >
                 <Text style={styles.textButton} >Let's Start !</Text>
             </TouchableOpacity>
