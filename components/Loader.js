@@ -2,15 +2,13 @@ import React, { Component, useState } from 'react'
 import { View, StyleSheet, Text, Image } from 'react-native'
 import AnimatedEllipsis from 'react-native-animated-ellipsis';
 
-export default class Loader extends Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#3A86FF' }}>
-                <Image source={require('../assets/img/ELogo.png')} style={{}} />
-                <Image source={require('../assets/img/Chrono.png')} style={{ width: 300, height: 300 }} />
-                <Text style={styles.textStyle}>
-                    {/* Loading{"\n"} */}
-                    <AnimatedEllipsis numberOfDots={3}
+export default function Loader() {
+    return (
+        <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#3A86FF' }}>
+            <Image source={require('../assets/img/ELogo.png')} style={{}} />
+            <Image source={require('../assets/img/Chrono.png')} style={{ width: 300, height: 300 }} />
+            <Text style={styles.textStyle}>
+                <AnimatedEllipsis numberOfDots={3}
                     minOpacity={0.1}
                     animationDelay={200}
                     style={{
@@ -20,10 +18,9 @@ export default class Loader extends Component {
                         letterSpacing: -15,
                     }}
                 />
-                </Text>
-            </View>
-        )
-    }
+            </Text>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
