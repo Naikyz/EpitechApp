@@ -2,7 +2,7 @@ import React, { useState, useEffect, Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import Loader from '../components/Loader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Profile from './Profile';
+import Profile from './Profile/Profile';
 import Home from './Home';
 import Sleep from '../components/Sleep';
 

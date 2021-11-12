@@ -3,10 +3,9 @@ import { Text, View, StyleSheet, Image, ActivityIndicator, TouchableOpacity, Scr
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Sleep from '../components/Sleep';
 
-export default function Profile() {
-    let pdfLogo = <Image source={require('../assets/img/PdfLogo.png')} />;
+export default function HomePage({navigation}) {
+    let pdfLogo = <Image source={require('../../assets/img/PdfLogo.png')} />;
     const [isLoading, setIsLoading] = useState(true);
     const [userFirstName, setUserFirstName] = useState('');
     const [userLastName, setUserLastName] = useState('');
@@ -57,7 +56,6 @@ export default function Profile() {
         readData();
     }, [])
 
-    console.log(userModules[userModules.length - 1]['title'])
     if (isLoading === true)
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -70,67 +68,67 @@ export default function Profile() {
                 <View style={styles.headerView}>
                     <Text style={styles.headerTextStyle}>{userFirstName + "\n" + userLastName[0].toUpperCase() + userLastName.slice(1).toLowerCase() + "\n" + userGpa}</Text>
                     <TouchableOpacity onPress={() => { }} style={styles.options}>
-                        <Image source={require('../assets/img/Options.png')} />
+                        <Image source={require('../../assets/img/Options.png')} />
                     </TouchableOpacity>
                 </View>
                 <ScrollView vertical contentContainerStyle={styles.cards} style={{ width: '100%', height: '30%' }}>
-                    <TouchableOpacity onPress={() => { }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileCredits') }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
                         <View style={styles.cardHeader}>
-                            <Text style={styles.textStyle}>Credits <Image source={require('../assets/img/GotoButton.png')} /></Text>
+                            <Text style={styles.textStyle}>Credits <Image source={require('../../assets/img/GotoButton.png')} /></Text>
                             <Text style={styles.textStyle}>{userCredits}/{60 * userYear}</Text>
                         </View>
-                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
-                                <Text style={styles.cardText}>{(userModules[userModules.length - 1] !== undefined) ? userModules[userModules.length - 1]['title'].substring(0, 15) + "...   " : ""}</Text>
-                                <Text style={styles.cardText}>{(userModules[userModules.length - 2] !== undefined) ? userModules[userModules.length - 2]['title'].substring(0, 15) + "...   " : ""}</Text>
-                            </View>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
-                                <Text style={styles.cardText}>{(userModules[userModules.length - 3] !== undefined) ? userModules[userModules.length - 3]['title'].substring(0, 15) + "...   " : ""}</Text>
-                                <Text style={styles.cardText}>{(userModules[userModules.length - 4] !== undefined) ? userModules[userModules.length - 4]['title'].substring(0, 15) + "...   " : ""}</Text>
-                            </View>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+                            <Text style={styles.cardText}>{(userModules[userModules.length - 1] !== undefined) ? userModules[userModules.length - 1]['title'].substring(0, 15) + "...   " : ""}</Text>
+                            <Text style={styles.cardText}>{(userModules[userModules.length - 2] !== undefined) ? userModules[userModules.length - 2]['title'].substring(0, 15) + "...   " : ""}</Text>
+                        </View>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
+                            <Text style={styles.cardText}>{(userModules[userModules.length - 3] !== undefined) ? userModules[userModules.length - 3]['title'].substring(0, 15) + "...   " : ""}</Text>
+                            <Text style={styles.cardText}>{(userModules[userModules.length - 4] !== undefined) ? userModules[userModules.length - 4]['title'].substring(0, 15) + "...   " : ""}</Text>
+                        </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileAbsences') }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
                         <View style={styles.cardHeader}>
-                            <Text style={styles.textStyle}>Recent Absences <Image source={require('../assets/img/GotoButton.png')} /></Text>
+                            <Text style={styles.textStyle}>Recent Absences <Image source={require('../../assets/img/GotoButton.png')} /></Text>
                         </View>
                         <View style={{ display: "flex", justifyContent: "space-around", height: "70%" }}>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
                                 <Text style={styles.cardText}>{(userMissed[userMissed.length - 1] !== undefined) ? userMissed[userMissed.length - 1]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
                                 <Text style={styles.cardText}>{(userMissed[userMissed.length - 2] !== undefined) ? userMissed[userMissed.length - 2]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
                             </View>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
                                 <Text style={styles.cardText}>{(userMissed[userMissed.length - 3] !== undefined) ? userMissed[userMissed.length - 3]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
                                 <Text style={styles.cardText}>{(userMissed[userMissed.length - 4] !== undefined) ? userMissed[userMissed.length - 4]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileDocuments') }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
                         <View style={styles.cardHeader}>
-                            <Text style={styles.textStyle}>Documents <Image source={require('../assets/img/GotoButton.png')} /></Text>
+                            <Text style={styles.textStyle}>Documents <Image source={require('../../assets/img/GotoButton.png')} /></Text>
                         </View>
                         <View style={{ display: "flex", justifyContent: "space-around", height: "70%" }}>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
                                 <Text style={styles.cardText}>{(userDocuments[userDocuments.length - 1] !== undefined) ? userDocuments[userDocuments.length - 1]['title'].substring(0, 13) + "..." : ""} {(userDocuments[userDocuments.length - 1] !== undefined) ? pdfLogo : ""}</Text>
                                 <Text style={styles.cardText}>{(userDocuments[userDocuments.length - 2] !== undefined) ? userDocuments[userDocuments.length - 2]['title'].substring(0, 12) + "..." : ""} {(userDocuments[userDocuments.length - 2] !== undefined) ? pdfLogo : ""}</Text>
                             </View>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
                                 <Text style={styles.cardText}>{(userDocuments[userDocuments.length - 3] !== undefined) ? userDocuments[userDocuments.length - 3]['title'].substring(0, 13) + "..." : ""} {(userDocuments[userDocuments.length - 3] !== undefined) ? pdfLogo : ""}</Text>
                                 <Text style={styles.cardText}>{(userDocuments[userDocuments.length - 4] !== undefined) ? userDocuments[userDocuments.length - 4]['title'].substring(0, 12) + "..." : ""} {(userDocuments[userDocuments.length - 4] !== undefined) ? pdfLogo : ""}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.card, { width: "90%", height: 110, marginTop: 15 }]}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileLogtimeFlags') }} style={[styles.card, { width: "90%", height: 110, marginTop: 15 }]}>
                         <View style={styles.cardHeader}>
-                            <Text style={styles.textStyle}>Logtime & flags <Image source={require('../assets/img/GotoButton.png')} /></Text>
-                            <Image source={require('../assets/img/Colors.png')} />
+                            <Text style={styles.textStyle}>Logtime & flags <Image source={require('../../assets/img/GotoButton.png')} /></Text>
+                            <Image source={require('../../assets/img/Colors.png')} />
                         </View>
                         <View style={{ display: "flex", justifyContent: "space-around", height: "70%" }}>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                                <Text style={styles.cardText}>{userFlags['difficulty']['label']}<Text style={{fontWeight: 'bold'}}> {userFlags['difficulty']['modules'].length}</Text></Text>
-                                <Text style={styles.cardText}>{userFlags['ghost']['label']}<Text style={{fontWeight: 'bold'}}> {userFlags['ghost']['modules'].length}</Text></Text>
+                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                                <Text style={styles.cardText}>{userFlags['difficulty']['label']}<Text style={{ fontWeight: 'bold' }}> {userFlags['difficulty']['modules'].length}</Text></Text>
+                                <Text style={styles.cardText}>{userFlags['ghost']['label']}<Text style={{ fontWeight: 'bold' }}> {userFlags['ghost']['modules'].length}</Text></Text>
                             </View>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                                <Text style={styles.cardText}>{userFlags['medal']['label']}<Text style={{fontWeight: 'bold'}}> {userFlags['medal']['modules'].length}</Text></Text>
-                                <Text style={styles.cardText}>{userFlags['remarkable']['label']}<Text style={{fontWeight: 'bold'}}> {userFlags['remarkable']['modules'].length}</Text></Text>
+                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                                <Text style={styles.cardText}>{userFlags['medal']['label']}<Text style={{ fontWeight: 'bold' }}> {userFlags['medal']['modules'].length}</Text></Text>
+                                <Text style={styles.cardText}>{userFlags['remarkable']['label']}<Text style={{ fontWeight: 'bold' }}> {userFlags['remarkable']['modules'].length}</Text></Text>
                             </View>
                         </View>
                     </TouchableOpacity>
