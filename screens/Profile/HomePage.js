@@ -86,18 +86,18 @@ export default function HomePage({navigation}) {
                             <Text style={styles.cardText}>{(userModules[userModules.length - 4] !== undefined) ? userModules[userModules.length - 4]['title'].substring(0, 15) + "...   " : ""}</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileAbsences') }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileAbsences', {missed: userMissed}) }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
                         <View style={styles.cardHeader}>
                             <Text style={styles.textStyle}>Recent Absences <Image source={require('../../assets/img/GotoButton.png')} /></Text>
                         </View>
                         <View style={{ display: "flex", justifyContent: "space-around", height: "70%" }}>
                             <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                                <Text style={styles.cardText}>{(userMissed[userMissed.length - 1] !== undefined) ? userMissed[userMissed.length - 1]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
-                                <Text style={styles.cardText}>{(userMissed[userMissed.length - 2] !== undefined) ? userMissed[userMissed.length - 2]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
+                                <Text style={styles.cardText}>{(userMissed[0] !== undefined) ? userMissed[0]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
+                                <Text style={styles.cardText}>{(userMissed[1] !== undefined) ? userMissed[1]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
                             </View>
                             <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
-                                <Text style={styles.cardText}>{(userMissed[userMissed.length - 3] !== undefined) ? userMissed[userMissed.length - 3]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
-                                <Text style={styles.cardText}>{(userMissed[userMissed.length - 4] !== undefined) ? userMissed[userMissed.length - 4]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
+                                <Text style={styles.cardText}>{(userMissed[2] !== undefined) ? userMissed[2]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
+                                <Text style={styles.cardText}>{(userMissed[3] !== undefined) ? userMissed[3]['acti_title'].substring(0, 15) + "...   " : ""}</Text>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         width: "90%",
         height: "15%",
-        // backgroundColor: "red",
         paddingTop: 3
     },
     cards: {
