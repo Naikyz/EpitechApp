@@ -19,13 +19,13 @@ export default function Absences({ route, navigation }) {
         }
         line++;
         return (
-            <View style={style}>
+            <TouchableOpacity style={style}>
                 <Text style={styles.title}>{title.substring(0, 21) + "..."}</Text>
                 <Text style={styles.date}>{day+"/"+month+"/"+year}</Text>
-            </View>
+            </TouchableOpacity>
         );
     };
-
+    
     function renderItem({ item }) {
         return (
             <Item title={item.acti_title} date={item.begin} />
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "#EEF5FF",
-        height: 27,
+        height: 50,
     },
     item2: {
         display: "flex",
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         backgroundColor: "#FFFFFF",
-        height: 27,
+        height: 50,
     },
     title: {
         fontFamily: 'Poppins-Regular',
