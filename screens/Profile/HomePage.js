@@ -101,7 +101,7 @@ export default function HomePage({navigation}) {
                             </View>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileDocuments') }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('ProfileDocuments', {docs: userDocuments}) }} style={[styles.card, { width: "90%", height: 120, marginTop: 15 }]}>
                         <View style={styles.cardHeader}>
                             <Text style={styles.textStyle}>Documents <Image source={require('../../assets/img/GotoButton.png')} /></Text>
                         </View>

@@ -18,6 +18,8 @@ target 'EpiApp' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-pdf', :path => '../node_modules/react-native-pdf'
+
   target 'EpiAppTests' do
     inherit! :complete
     # Pods for testing
